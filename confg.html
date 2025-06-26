@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Configurações</title>
+  <link rel="stylesheet" href="/css/estilo.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/ npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+</head>
+<body>
+  <a href="index.html" class="icone-voltar">
+    <i class="bi bi-arrow-left-circle-fill"></i>
+  </a>
+
+  <div class="container">
+    <h1 class="titulo"> Configurações do nosso app</h1>
+
+    <div class="conteudo config-menu">
+      <h3>Personalizar </h3>
+
+      <div class="config-item">
+        <label for="tema">Tema:</label>
+        <select id="tema" onchange="trocarTema()">
+          <option value="escuro" selected> Tema escuro</option>
+          <option value="claro"> Tema claro</option>
+        </select>
+      </div>
+
+      <div class="config-item">
+        <label for="idioma">Idioma:</label>
+        <select id="idioma" onchange="trocarIdioma()">
+          <option value="pt-br" selected>Português (BR)</option>
+          <option value="pt-pt">Português (PT)</option>
+          <option value="es">Espanhol</option>
+          <option value="en">Inglês</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function trocarTema() {
+      const tema = document.getElementById('tema').value;
+      document.body.style.backgroundColor = (tema === 'claro') ? '#f4f4f4' : '#0a0f1a';
+      document.body.style.color = (tema === 'claro') ? '#000' : '#fff';
+    }
+
+    function trocarIdioma() {
+      const idioma = document.getElementById('idioma').value;
+      alert('Idioma alterado para: ' + idioma.toUpperCase());
+    }
+  </script>
+</body>
+</html>

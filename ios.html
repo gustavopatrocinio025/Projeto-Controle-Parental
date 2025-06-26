@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle Parental - iOS</title>
+  <link rel="stylesheet" href="/css/estilo.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main>
+  <h1 class="titulo">Controle Parental - iOS</h1>
+  <div class="passo ativo" id="passo-0">
+      <h2 class="bemvindo subtitulo-sistema">Acesso à Página de Controle Parental</h2>
+      <video controls width="100%" style="max-width: 700px; margin-bottom: 20px; border-radius: 10px;">
+          <source src="{{ url_for('static', filename='videos/ios-video.mp4') }}" type="video/mp4">
+          Seu navegador não suporta o elemento de vídeo.
+        </video>
+      <button class="botao btn-proximo" data-proximo="1">Proximo</button>
+  </div>
+
+  <div class="passo" id="passo-1">
+    <img class="img" src="https://i.postimg.cc/vmYC99FN/image.webp" alt="controle parental">
+      <h2 class="bemvindo subtitulo-sistema">Descrição</h2>
+      <p class="li">Abra o app de configurações.</p>
+      <p class="li">Procure ou pesquise pela aba de “Tempo de uso”.</p>
+      <p class="li">Abaixe até a aba de “Conteúdo e privacidade”.</p>
+      <p class="li">Ative a opção “Restrições”.</p>
+      <button class="botao btn-proximo" data-proximo="2">Proximo</button>
+  </div>
+
+  <div class="passo" id="passo-2">
+      <img class="img" src="https://i.postimg.cc/vmYC99FN/image.webp" alt="controle parental">
+        <h2 class="bemvindo subtitulo-sistema">Limitações de Compras</h2>
+        <p class="li">Dentro da aba “Conteúdo e Privacidade”, selecione a aba “Compras iTunes e App Store”.</p>
+        <p class="li">Selecione a opção “Instalar Apps” e coloque a opção que desejar (Permitir/ Não Permitir).</p>
+        <p class="li">Ainda dentro da aba “Compras no iTunes e App Store”, selecione a aba “Apagar Apps” e selecione a opção que desejar (Permitir/ Não Permitir).</p>
+        <button class="botao btn-proximo" data-proximo="3">Proximo</button>
+    </div>
+
+    <div class="passo" id="passo-3">
+      <img class="img" src="https://i.postimg.cc/vmYC99FN/image.webp" alt="controle parental">
+        <h2 class="bemvindo subtitulo-sistema">Restrições de Conteúdo</h2>
+        <p class="li">Dentro da aba “Conteúdo e Privacidade”, selecione a aba “Restrições de Conteúdo”.</p>
+        <p class="li">Na aba “Conteúdo da Web”, escolha o tipo de restrição conforme desejado.</p>
+        <button class="botao btn-proximo" data-proximo="4">Proximo</button>
+    </div>
+
+    <div class="passo" id="passo-4">
+      <div id="chatbot-container">
+          <div id="chat-header">Ajuda - Controle Parental</div>
+          <div id="chat-body"></div>
+          <div id="chat-input">
+            <input type="text" id="user-input" placeholder="Digite sua pergunta...">
+            <button onclick="sendMessage()">Enviar</button>
+          </div>
+        </div>
+        <a href="iniciar.html" class="botao voltar">Voltar</a>
+  </div>
+</main>
+
+<script src="script.js"></script>
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById('user-input');
+      const message = input.value.trim();
+      if (!message) return;
+
+      appendMessage('Você', message, 'user');
+
+      const response = await fetch('/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({message: message})
+      });
+
+      const data = await response.json();
+      appendMessage('Ajuda', data.resposta, 'bot');
+      input.value = '';
+    }
+
+    function appendMessage(sender, text, className) {
+      const chatBody = document.getElementById('chat-body');
+      const msg = document.createElement('div');
+      msg.className = `chat-message ${className}`;
+      msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      chatBody.appendChild(msg);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  </script>
+</body>
+</html>
